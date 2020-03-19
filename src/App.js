@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import data from './data';
 
 // Context
+import { ProductContext } from './contexts/ProductContext';
 
 // Components
 import Navigation from './components/Navigation';
@@ -22,13 +23,15 @@ function App() {
 			<Navigation cart={cart} />
 
 			{/* Routes */}
-			<Route exact path="/">
-				<Products products={products} addItem={addItem} />
-			</Route>
-
-			<Route path="/cart">
-				<ShoppingCart cart={cart} />
-			</Route>
+			<ProductContext.Provider value={{ products, addItem }}>
+				<Route exact path="/">
+					<Products />
+				</Route>
+			
+				<Route path="/cart">
+					<ShoppingCart cart={cart} />
+				</Route>
+			</ProductContext.Provider>
 		</div>
 	);
 }
